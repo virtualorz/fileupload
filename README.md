@@ -18,9 +18,6 @@ edit config/app.php
         ...
         'Fileupload' => Virtualorz\Fileupload\Facades\Fileupload::class,
     ]
-   
-# Publish data
-    php artisan vendor:publish --provider="Virtualorz\Fileupload\FileuploadServiceProvider"
     
 # Edit .env
 edit .env file add UPLOADDIR for dir name to save files under public dir
