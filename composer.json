@@ -1,0 +1,10 @@
+{
+    "name": "virtualorz/fileupload",
+    "authors": [
+        {
+            "name": "virtualorz",
+            "email": "virtualorz@gmail.com"
+        }
+    ],
+    "require": {}
+}
