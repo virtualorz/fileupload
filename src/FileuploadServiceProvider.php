@@ -29,5 +29,8 @@ class FileuploadServiceProvider extends ServiceProvider
         //
         $this->loadViewsFrom(__DIR__.'/view', 'fileupload');
         $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->publishes([
+            __DIR__.'/asset/fileupload' => public_path('vendor/fileupload')
+        ]);
     }
 }

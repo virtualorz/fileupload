@@ -18,6 +18,9 @@ edit config/app.php
         ...
         'Fileupload' => Virtualorz\Fileupload\Facades\Fileupload::class,
     ]
+   
+# Publish data
+    php artisan vendor:publish --provider="Virtualorz\Fileupload\FileuploadServiceProvider"
     
 # Edit .env
 edit .env file add UPLOADDIR for dir name to save files under public dir
@@ -32,9 +35,9 @@ edit the 'disks' area, replace the 'public' to
                 'visibility' => 'public',
             ],
 
-#Usage
+# Usage
     In view:
-    <script src="{{ asset('vendor/treeView/permission_tree.js') }}"></script>
+    <script src="{{ asset('vendor/fileupload/fileupload.js') }}"></script>
     And need an file element like :
     <input type="file" name="file" id="file" class="file_input" accept=".jpeg">
     accept attribute can edit to the file type you want
