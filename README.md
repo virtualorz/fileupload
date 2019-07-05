@@ -45,6 +45,9 @@ edit the 'disks' area, replace the 'public' to
     
     And after file element call {!! Fileupload::createUploadArea($files)!!}
     
+    In controller
+    use $request->get('upload_file') to get upload files array
+    
 # Method
 
 ###### createUploadArea($files = null)
