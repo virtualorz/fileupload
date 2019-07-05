@@ -23,7 +23,8 @@ edit config/app.php
     php artisan vendor:publish --provider="Virtualorz\Fileupload\FileuploadServiceProvider"
     
 # Edit .env
-edit .env file add UPLOADDIR for dir name to save files under public dir
+edit .env file add UPLOADDIR for dir name to save files under public dir <br>
+edit .env file add FILESYSTEM_DRIVER=public
 
 # Edit config/filesystems.php
 edit the 'disks' area, replace the 'public' to 
