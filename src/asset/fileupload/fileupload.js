@@ -30,8 +30,15 @@ $("#file").change(function(){
                     if (data['status'] == 1) {
                         var template = $("#upload_temp").clone();
                         template.removeAttr("id");
-                        template.find(".upload_name").attr('data-url',data['data']['url']);
-                        template.find(".upload_name").html(data['data']['data']['org_name']);
+                        if(data['data']['is_image'] == 0) {//一般檔案，顯示按鈕
+                            template.find(".target_img_div").remove();
+                            template.find(".upload_name").attr('data-url', data['data']['url']);
+                            template.find(".upload_name").html(data['data']['data']['org_name']);
+                        }
+                        else{//圖片，顯示小張縮圖
+                            template.find(".upload_name").remove();
+                            template.find(".target_img").attr('src', data['data']['url']);
+                        }
                         template.find(".upload_file").val(JSON.stringify(data['data']['data']));
                         template.show();
 

@@ -18,6 +18,10 @@ class Fileupload
     public function index(Request $request){
 
         try {
+            $image_file_subname = [
+                'jpg','jpeg','png','gif','bmp'
+            ];
+
             $item = $request->file('file');
             $path = $item->store(env('UPLOADDIR','virtualorz_upload'));
             $size = Storage::size($path);
@@ -33,6 +37,10 @@ class Fileupload
             self::$message['status_string'] = "上傳成功";
             self::$message['data']['url'] = Storage::url($info['dirname'].'/'.$info['basename']);
             self::$message['data']['data'] = $tmp;
+            self::$message['data']['is_image'] = false;
+            if(in_array(strtolower($info['extension']),$image_file_subname)){
+                self::$message['data']['is_image'] = true;
+            }
         }catch(\Exception $ex){
             self::$message['message'] = $ex->getMessage();
         }
