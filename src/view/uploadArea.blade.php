@@ -1,7 +1,7 @@
 <div id="upload_file_area">
     <div class="btn-group upload_temp" id="upload_temp" style="display:none">
         <button type="button" class="btn btn-success upload_name btn-url-black"></button>
-        <div class="col-sm-3 target_img_div"><img class="target_img"></div>
+        <div class="col-sm-3 target_img_div"><img class="img-responsive target_img"></div>
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
