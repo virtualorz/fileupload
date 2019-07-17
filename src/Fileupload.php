@@ -56,4 +56,12 @@ class Fileupload
 
     }
 
+    public function createUploadResult($files = null){
+
+        return view('fileupload::uploadResult',[
+            'files' => $files
+        ])->render();
+
+    }
+
 }

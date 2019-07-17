@@ -53,5 +53,9 @@ edit the 'disks' area, replace the 'public' to
 ###### createUploadArea($files = null)
 `return bload html for view to generate file upload html area, in edit mode you can put the uploed file to $files variable`
    
+###### createUploadResult($files = null)
+`return bload html for view to generate file upload Result html area, use in detail page you can put the uploed file to $files variable`
+      
+
 # 中文版本文件
 [Fileupload : 快速產生檔案上傳介面及管理](http://www.alvinchen.club/2019/07/03/%e4%bd%9c%e5%93%81laravel-package-fileupload-%e5%bf%ab%e9%80%9f%e7%94%a2%e7%94%9f%e6%aa%94%e6%a1%88%e4%b8%8a%e5%82%b3%e4%bb%8b%e9%9d%a2%e5%8f%8a%e7%ae%a1%e7%90%86/)
