@@ -1,17 +1,20 @@
-$("#file").change(function(){
+$(".file_input").change(function(){
 
-    $(".upload_result").remove();
+    var upload_target = $(this).parents('.form-group').first().next();
+    if(typeof $(this).attr('multiple') == typeof undefined) {
+        upload_target.find('.upload_result').remove();
+    }
     for(var key in $(this).prop('files')){
         if(!isNaN(key)) {
 
             //顯示loading
-            var upload_show_area = $("#upload_show_area").clone();
+            var upload_show_area = upload_target.find('.upload_show_area').clone();
             upload_show_area.removeAttr("id");
             upload_show_area.show();
             var uuid = _uuid();
             upload_show_area.addClass("upload_result");
             upload_show_area.addClass("upload_"+uuid);
-            $("#upload_file_area").append($(upload_show_area)[0].outerHTML);
+            upload_target.find('.upload_file_area').append($(upload_show_area)[0].outerHTML);
 
             var file = $(this).prop('files')[key];
             var form_data = new FormData();
@@ -20,7 +23,7 @@ $("#file").change(function(){
             form_data.append('_token', "{{ csrf_token() }}");
 
             $.ajax({
-                url: $("#virtualorz_upload_path").val(),
+                url: upload_target.find('.virtualorz_upload_path').val(),
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -28,17 +31,10 @@ $("#file").change(function(){
                 type: 'post',
                 success: function (data) {
                     if (data['status'] == 1) {
-                        var template = $("#upload_temp").clone();
+                        var template = upload_target.find('.upload_temp_area').clone();
                         template.removeAttr("id");
-                        if(data['data']['is_image'] == 0) {//一般檔案，顯示按鈕
-                            template.find(".target_img_div").remove();
-                            template.find(".upload_name").attr('data-url', data['data']['url']);
-                            template.find(".upload_name").html(data['data']['data']['org_name']);
-                        }
-                        else{//圖片，顯示小張縮圖
-                            template.find(".upload_name").remove();
-                            template.find(".target_img").attr('src', data['data']['url']);
-                        }
+                        template.find(".upload_name").attr('data-url',data['data']['url']);
+                        template.find(".upload_name").html(data['data']['data']['org_name']);
                         template.find(".upload_file").val(JSON.stringify(data['data']['data']));
                         template.show();
 

@@ -48,9 +48,10 @@ class Fileupload
         return self::$message;
     }
 
-    public function createUploadArea($files = null){
+    public function createUploadArea($target_name = 'upload_file',$files = null){
 
         return view('fileupload::uploadArea',[
+            'target_name' => $target_name,
             'files' => $files
         ])->render();
 
