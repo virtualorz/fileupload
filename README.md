@@ -40,17 +40,19 @@ edit the 'disks' area, replace the 'public' to
     In view:
     <script src="{{ asset('vendor/fileupload/fileupload.js') }}"></script>
     And need an file element like :
-    <input type="file" name="file" id="file" class="file_input" accept=".jpeg">
+    <input type="file" name="file" id="file" class="file_input" accept=".jpeg" multiple>
     accept attribute can edit to the file type you want
+    multiple attribute can let you upload multiple files
     
-    And after file element call {!! Fileupload::createUploadArea($files)!!}
+    And after file element call {!! Fileupload::createUploadArea('UPLOAD_COLUMN_NAME',$files)!!}
+    UPLOAD_COLUMN_NAME can edit to the column name you need
     
     In controller
     use $request->get('upload_file') to get upload files array
     
 # Method
 
-###### createUploadArea($files = null)
+###### createUploadArea($column_name = '','$files = null)
 `return bload html for view to generate file upload html area, in edit mode you can put the uploed file to $files variable`
    
 ###### createUploadResult($files = null)
