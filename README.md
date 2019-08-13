@@ -40,9 +40,12 @@ edit the 'disks' area, replace the 'public' to
     In view:
     <script src="{{ asset('vendor/fileupload/fileupload.js') }}"></script>
     And need an file element like :
-    <input type="file" name="file" id="file" class="file_input" accept=".jpeg" multiple>
+    <input type="file" name="file" id="file" class="file_input" accept=".jpeg" multiple data-size="240*240" data-is_image="true">
     accept attribute can edit to the file type you want
     multiple attribute can let you upload multiple files
+    data-size is to check image size
+    data-is_image set upload is image or not
+    
     
     And after file element call {!! Fileupload::createUploadArea('UPLOAD_COLUMN_NAME',$files)!!}
     UPLOAD_COLUMN_NAME can edit to the column name you need

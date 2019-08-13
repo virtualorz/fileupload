@@ -15,7 +15,7 @@
     <div id="show_error" class="alert alert-danger alert-dismissible alert_show_error" style="display:none">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="$(this).hide()">×</button>
         <h4><i class="icon fa fa-ban"></i> 錯誤!</h4>
-        上傳錯誤，請重新操作
+        上傳錯誤，<p class="error_message">請重新操作</p>
     </div>
 
     <span class="upload_show_area" style="display:none">

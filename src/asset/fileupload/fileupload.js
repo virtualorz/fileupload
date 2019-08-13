@@ -21,6 +21,15 @@ $(".file_input").change(function(){
             form_data.append('file', file);
             form_data.append('uuid', uuid);
             form_data.append('_token', "{{ csrf_token() }}");
+            if( typeof $(this).attr('data-is_image') != 'undefined'){
+                form_data.append('is_image', $(this).attr('data-is_image'));
+            }
+            if( typeof $(this).attr('data-size') != 'undefined'){
+                form_data.append('size', $(this).attr('data-size'));
+            }
+            if( typeof $(this).attr('accept') != 'undefined'){
+                form_data.append('accept', $(this).attr('accept'));
+            }
 
             $.ajax({
                 url: upload_target.find('.virtualorz_upload_path').val(),
@@ -44,6 +53,9 @@ $(".file_input").change(function(){
                     else{
                         var uuid = this.data.get('uuid');
                         var error_template = $("#show_error").clone();
+                        if(typeof data['message'] !='undefined' && data['message'] != ''){
+                            error_template.find('.error_message').html(data['message']);
+                        }
                         error_template.show();
                         $(".upload_"+uuid).html($(error_template)[0].outerHTML);
                     }
@@ -51,6 +63,9 @@ $(".file_input").change(function(){
                 error: function (jqXHR, exception) {
                     var uuid = this.data.get('uuid');
                     var error_template = $("#show_error").clone();
+                    if(typeof data['message'] !='undefined' && data['message'] != ''){
+                        error_template.find('error_message').html(data['message']);
+                    }
                     error_template.show();
                     $(".upload_"+uuid).html($(error_template)[0].outerHTML);
                 }

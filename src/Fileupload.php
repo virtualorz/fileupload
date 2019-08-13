@@ -4,6 +4,7 @@ namespace Virtualorz\Fileupload;
 
 use Illuminate\Http\Request;
 use Storage;
+use Validator;
 
 class Fileupload
 {
@@ -17,10 +18,50 @@ class Fileupload
 
     public function index(Request $request){
 
+        self::$message['data']['is_image'] = false;
+        if($request->get('is_image') !== null && $request->get('is_image') == true) {
+
+            //整理副檔名
+            $mimes = '';
+            if($request->get('accept') != null){
+                $mimes = str_replace('.','image/',$request->get('accept'));
+            }
+            //整理圖片尺寸限制
+            $dimensions = '';
+            if($request->get('size') != null){
+                $size = explode('*',$request->get('size'));
+                if(count($size) == 2){
+                    $dimensions = 'dimensions:width='.$size[0].',height='.$size[1];
+                }
+            }
+            //產生validate string
+            $v_string = '';
+            if($mimes != ''){
+                $v_string .= 'mimetypes:'.$mimes.'|';
+            }
+            if($dimensions != ''){
+                $v_string .= $dimensions;
+            }
+
+            if($v_string != ''){
+                $validator = Validator::make($request->all(), [
+                    'file' => $v_string
+                ]);
+
+                if ($validator->fails()) {
+                    $error = $validator->errors()->toArray();
+                    $error = reset($error);
+
+                    self::$message['status_string'] = '驗證錯誤';
+                    self::$message['message'] = $error[0];
+
+                    return self::$message;
+                }
+            }
+            self::$message['data']['is_image'] = true;
+        }
+
         try {
-            $image_file_subname = [
-                'jpg','jpeg','png','gif','bmp'
-            ];
 
             $item = $request->file('file');
             $path = $item->store(env('UPLOADDIR','virtualorz_upload'));
@@ -37,10 +78,7 @@ class Fileupload
             self::$message['status_string'] = "上傳成功";
             self::$message['data']['url'] = Storage::url($info['dirname'].'/'.$info['basename']);
             self::$message['data']['data'] = $tmp;
-            self::$message['data']['is_image'] = false;
-            if(in_array(strtolower($info['extension']),$image_file_subname)){
-                self::$message['data']['is_image'] = true;
-            }
+
         }catch(\Exception $ex){
             self::$message['message'] = $ex->getMessage();
         }
